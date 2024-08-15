@@ -28,7 +28,6 @@ mongoose
   .connect(DATABASE_URL, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() =>
     app.listen(PORT, () => {
-      console.log("database connected", DATABASE_URL);
       console.log(`server running on port ${PORT}`);
     })
   )

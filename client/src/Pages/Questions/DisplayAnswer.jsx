@@ -42,8 +42,8 @@ const DisplayAnswer = ({ question, handleShare }) => {
               >
                 <Avatar
                   backgroundColor="lightgreen"
-                  px="8px"
-                  py="5px"
+                  height={"35px"}
+                  width={"30px"}
                   borderRadius="4px"
                 >
                   {ans.userAnswered.charAt(0).toUpperCase()}

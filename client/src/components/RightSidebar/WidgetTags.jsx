@@ -21,8 +21,8 @@ function Widgettags() {
     <div className="widget-tags">
       <h4>Watched Tags</h4>
       <div className="widget-tags-div">
-        {tags.map((tag) => {
-          return <p key={tag}>{tag}</p>;
+        {tags.map((tag, index) => {
+          return <p key={index}>{tag}</p>;
         })}
       </div>
     </div>

@@ -4,11 +4,13 @@ import { useNavigate } from "react-router-dom";
 
 import "./AskQuestion.css";
 import { askQuestion } from "../../actions/question";
+import toast from "react-hot-toast";
 
 function AskQuestion() {
   const dispatch = useDispatch();
-  const User = useSelector((state) => state.currentUserReducer);
   const navigate = useNavigate();
+
+  const User = useSelector((state) => state.currentUserReducer);
 
   const [questionTitle, setQuestionTitle] = useState("");
   const [questionBody, setQuestionBody] = useState("");
@@ -22,12 +24,17 @@ function AskQuestion() {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    if (!questionTitle.trim() || !questionBody.trim() || !questionTags.trim()) {
+      toast.error("Please fill all the fields");
+      return;
+    }
     dispatch(
       askQuestion(
         {
           questionTitle,
           questionBody,
-          questionTags,
+          questionTags: questionTags.split(" "),
           userPosted: User.result.name,
           userId: User?.result?._id,
         },
@@ -36,11 +43,6 @@ function AskQuestion() {
     );
   };
 
-  const handleEnter = (e) => {
-    if (e.key === "Enter") {
-      setQuestionBody(questionBody + "\n");
-    }
-  };
   return (
     <div className="ask-question">
       <div className="ask-ques-container">
@@ -59,6 +61,7 @@ function AskQuestion() {
                 onChange={(e) => {
                   setQuestionTitle(e.target.value);
                 }}
+                value={questionTitle}
                 placeholder="e.g. Is there an R function for finding the index of an element in a vector?"
               />
             </label>
@@ -76,18 +79,19 @@ function AskQuestion() {
                 }}
                 cols="30"
                 rows="10"
-                onKeyPress={handleEnter}
+                value={questionBody}
               ></textarea>
             </label>
             <label htmlFor="ask-ques-tags">
               <h4>Tags</h4>
-              <p>Add up to 5 tags to describe what your question is about</p>
+              <p>Max 5 tags. Separate with spaces.</p>
               <input
                 type="text"
                 id="ask-ques-tags"
                 onChange={(e) => {
-                  setQuestionTags(e.target.value.split(" "));
+                  setQuestionTags(e.target.value);
                 }}
+                value={questionTags}
                 placeholder="e.g. (xml typescript wordpress)"
               />
             </label>
@@ -96,6 +100,11 @@ function AskQuestion() {
             type="submit"
             value="Reivew your question"
             className="review-btn"
+            disabled={
+              !questionTitle.trim() ||
+              !questionBody.trim() ||
+              !questionTags.trim()
+            }
           />
         </form>
       </div>

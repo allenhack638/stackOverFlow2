@@ -2,8 +2,8 @@ import React from "react";
 const Avatar = ({
   children,
   backgroundColor,
-  px,
-  py,
+  width,
+  height,
   color,
   borderRadius,
   fontSize,
@@ -11,13 +11,18 @@ const Avatar = ({
 }) => {
   const style = {
     backgroundColor,
-    padding: `${px} ${py}`,
+    width,
+    height,
     color: color || "black",
     borderRadius,
     fontSize,
     textAlign: "center",
     cursor: cursor || null,
     textDecoration: null,
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "0",
   };
   return <div style={style}>{children}</div>;
 };

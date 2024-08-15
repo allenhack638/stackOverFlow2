@@ -19,8 +19,8 @@ function Question({ question }) {
         </Link>
         <div className="display-tags-time">
           <div className="display-tags">
-            {question.questionTags.map((tag) => (
-              <p>{tag}</p>
+            {question.questionTags.map((tag, index) => (
+              <p key={index}>{tag}</p>
             ))}
           </div>
           <p className="display-time">

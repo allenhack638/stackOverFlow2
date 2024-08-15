@@ -39,8 +39,8 @@ const UserProfile = () => {
                 backgroundColor="purple"
                 color="white"
                 fontSize="50px"
-                px="40px"
-                py="30px"
+                height={"100px"}
+                width={"100px"}
               >
                 {currentProfile?.name.charAt(0).toUpperCase()}
               </Avatar>
