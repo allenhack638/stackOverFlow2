@@ -25,17 +25,24 @@ export const updateProfile = async (req, res) => {
   const { name, about, tags } = req.body;
 
   if (!mongoose.Types.ObjectId.isValid(_id)) {
-    return res.status(404).send("question unavailable...");
+    return res.status(404).send("User unavailable...");
   }
 
   try {
     const updatedProfile = await users.findByIdAndUpdate(
       _id,
-      { $set: { name: name, about: about, tags: tags } },
+      { $set: { name, about, tags } },
       { new: true }
     );
+
+    if (!updatedProfile) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
     res.status(200).json(updatedProfile);
   } catch (error) {
-    res.status(405).json({ message: error.message });
+    res
+      .status(500)
+      .json({ message: "Error updating profile: " + error.message });
   }
 };

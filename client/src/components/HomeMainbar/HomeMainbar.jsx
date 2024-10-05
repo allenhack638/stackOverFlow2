@@ -1,9 +1,10 @@
 import React from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import "./HomeMainbar.css";
 import QuestionList from "./QuestionList.jsx";
 import toast from "react-hot-toast";
+import { projectCode } from "../../api/index.js";
 
 function HomeMainbar() {
   const location = useLocation();
@@ -15,7 +16,7 @@ function HomeMainbar() {
     if (User === null) {
       toast.error("Login or Signup to ask a question");
     } else {
-      navigate("/AskQuestion");
+      navigate(`/${projectCode}/AskQuestion`); // Updated to include project code
     }
   };
   return (

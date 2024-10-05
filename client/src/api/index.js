@@ -1,6 +1,12 @@
 import axios from "axios";
 
-export const BACKEND_URL = "http://13.232.109.220:5000";
+const DEV_MODE = false;
+export const projectCode = "stack-rea-nod-v0";
+
+const DEV_URL = "http://localhost:5000";
+const PROD_URL = "https://api.allenbenny.site";
+
+export const BACKEND_URL = (DEV_MODE ? DEV_URL : PROD_URL) + "/" + projectCode;
 
 const API = axios.create({ baseURL: BACKEND_URL });
 
@@ -13,26 +19,28 @@ API.interceptors.request.use((req) => {
   return req;
 });
 
-export const logIn = (authData) => API.post("/user/login", authData);
-export const signUp = (authData) => API.post("/user/signup", authData);
+export const logIn = (authData) => API.post("/api/user/login", authData);
+export const signUp = (authData) => API.post("/api/user/signup", authData);
 
 export const postQuestion = (questionData) =>
-  API.post("/questions/Ask", questionData);
-export const getAllQuestions = () => API.get("/questions/get");
-export const deleteQuestion = (id) => API.delete(`/questions/delete/${id}`);
+  API.post("/api/questions/Ask", questionData);
+
+export const getAllQuestions = () => API.get("/api/questions/get");
+
+export const deleteQuestion = (id) => API.delete(`/api/questions/delete/${id}`);
 export const voteQuestion = (id, value, userId) =>
-  API.patch(`/questions/vote/${id}`, { value, userId });
+  API.patch(`/api/questions/vote/${id}`, { value, userId });
 
 export const postAnswer = (id, noOfAnswers, answerBody, userAnswered, userId) =>
-  API.patch(`/answer/post/${id}`, {
+  API.patch(`/api/answer/post/${id}`, {
     noOfAnswers,
     answerBody,
     userAnswered,
     userId,
   });
 export const deleteAnswer = (id, answerId, noOfAnswers) =>
-  API.patch(`/answer/delete/${id}`, { answerId, noOfAnswers });
+  API.patch(`/api/answer/delete/${id}`, { answerId, noOfAnswers });
 
-export const getAllUsers = () => API.get("/user/getAllUsers");
+export const getAllUsers = () => API.get("/api/user/getAllUsers");
 export const updateProfile = (id, updateData) =>
-  API.patch(`/user/update/${id}`, updateData);
+  API.patch(`/api/user/update/${id}`, updateData);

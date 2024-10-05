@@ -4,6 +4,7 @@ import Avatar from "../../components/Avatar/Avatar";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 import { deleteAnswer } from "../../actions/question";
+import { projectCode } from "../../api";
 
 const DisplayAnswer = ({ question, handleShare }) => {
   const dispatch = useDispatch();
@@ -36,7 +37,7 @@ const DisplayAnswer = ({ question, handleShare }) => {
             <div>
               <p>answered {moment(ans.answeredOn).fromNow()}</p>
               <Link
-                to={`/Users/${ans.userId}`}
+                to={`/${projectCode}/Users/${ans.userId}`}
                 className="user-link"
                 style={{ color: "#0086d8" }}
               >

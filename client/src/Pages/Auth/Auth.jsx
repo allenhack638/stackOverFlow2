@@ -33,9 +33,9 @@ const Auth = () => {
       if (!name) {
         alert("Enter a name to continue");
       }
-      await dispatch(signup({ name, email, password }, navigate));
+      dispatch(signup({ name, email, password }, navigate));
     } else {
-      await dispatch(login({ email, password }, navigate));
+      dispatch(login({ email, password }, navigate));
     }
     setLoading(false);
   };

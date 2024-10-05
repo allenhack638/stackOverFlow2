@@ -3,24 +3,17 @@ import { useDispatch } from "react-redux";
 import { updateProfile } from "../../actions/users";
 
 const EditProfileForm = ({ currentUser, setSwitch }) => {
-  const [name, setName] = useState(currentUser?.result?.name);
-  const [about, setAbout] = useState(currentUser?.result?.about);
-  const [tags, setTags] = useState("");
   const dispatch = useDispatch();
+
+  console.log(currentUser);
+
+  const [name, setName] = useState(currentUser?.result?.name || "");
+  const [about, setAbout] = useState(currentUser?.result?.about || "");
+  const [tags, setTags] = useState(currentUser?.result?.tags || []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (tags.length === 0) {
-      dispatch(
-        updateProfile(currentUser?.result?._id, {
-          name,
-          about,
-          tags: currentUser?.result?.tags,
-        })
-      );
-    } else {
-      dispatch(updateProfile(currentUser?.result?._id, { name, about, tags }));
-    }
+    dispatch(updateProfile(currentUser?.result?._id, { name, about, tags }));
     setSwitch(false);
   };
 
@@ -54,6 +47,7 @@ const EditProfileForm = ({ currentUser, setSwitch }) => {
             type="text"
             id="tags"
             onChange={(e) => setTags(e.target.value.split(" "))}
+            value={tags.join(" ")}
           />
         </label>
         <br />

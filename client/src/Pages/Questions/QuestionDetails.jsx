@@ -14,6 +14,8 @@ import {
 } from "../../actions/question";
 import copy from "copy-to-clipboard";
 
+import { projectCode } from "../../api";
+
 import toast from "react-hot-toast";
 
 const QuestionDetails = () => {
@@ -30,7 +32,7 @@ const QuestionDetails = () => {
     e.preventDefault();
     if (User === null) {
       toast.error("Login or Signup to answer a question");
-      navigate("/Auth");
+      navigate(`/${projectCode}/Auth`);
     } else {
       if (Answer === "") {
         toast.error("Enter an answer before submitting");
@@ -57,7 +59,7 @@ const QuestionDetails = () => {
   const handleDelete = () => {
     if (!User) {
       toast.error("Login or Signup to delete a question");
-      navigate("/Auth");
+      navigate(`/${projectCode}/Auth`);
       return;
     }
     dispatch(deleteQuestion(id, navigate));
@@ -129,7 +131,7 @@ const QuestionDetails = () => {
                         <div>
                           <p>asked {moment(question.askedOn).fromNow()}</p>
                           <Link
-                            to={`/Users/${question.userId}`}
+                            to={`/${projectCode}/Users/${question.userId}`}
                             className="user-link"
                           >
                             <Avatar
@@ -188,14 +190,18 @@ const QuestionDetails = () => {
                   <p>
                     Browse other Question tagged
                     {question.questionTags.map((tag, index) => (
-                      <Link to="/Tags" key={index} className="ans-tags">
+                      <Link
+                        to={`/${projectCode}/Tags`}
+                        key={index}
+                        className="ans-tags"
+                      >
                         {" "}
                         {tag}{" "}
                       </Link>
                     ))}{" "}
                     or
                     <Link
-                      to={User === null ? "#" : "/AskQuestion"}
+                      to={User === null ? "#" : `/${projectCode}/AskQuestion`}
                       className={`write-question-link ${
                         User === null ? "disabled-link" : ""
                       }`}

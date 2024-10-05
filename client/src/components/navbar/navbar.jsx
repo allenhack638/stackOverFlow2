@@ -9,6 +9,7 @@ import Avatar from "../../components/Avatar/Avatar";
 import "../../components/navbar/navbar.css";
 import { setCurrentUser } from "../../actions/currentUser";
 import Fuse from "fuse.js"; // Import Fuse.js
+import { projectCode } from "../../api";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const Navbar = () => {
 
   const handleLogout = () => {
     dispatch({ type: "LOGOUT" });
-    navigate("/");
+    navigate(`/${projectCode}/`); // Updated to include project code
     dispatch(setCurrentUser(null));
   };
 
@@ -79,10 +80,14 @@ const Navbar = () => {
   return (
     <nav className="main-nav">
       <div className="navbar">
-        <Link to="/" className="nav-item nav-logo">
+        <Link to={`/${projectCode}/`} className="nav-item nav-logo">
+          {" "}
+          {/* Updated to include project code */}
           <img src={Logo} alt="logo" />
         </Link>
-        <Link to="/" className="nav-item nav-btn">
+        <Link to={`/${projectCode}/`} className="nav-item nav-btn">
+          {" "}
+          {/* Updated to include project code */}
           Home
         </Link>
         {/* <Link to="/" className="nav-item nav-btn">
@@ -101,7 +106,9 @@ const Navbar = () => {
           <img src={Search} alt="search" width="18px" className="icon" />
         </form>
         {User === null ? (
-          <Link to="/Auth" className="nav-item nav-links">
+          <Link to={`/${projectCode}/Auth`} className="nav-item nav-links">
+            {" "}
+            {/* Updated to include project code */}
             Log in
           </Link>
         ) : (
@@ -114,7 +121,7 @@ const Navbar = () => {
               color="white"
             >
               <Link
-                to={`/Users/${User?.result?._id}`}
+                to={`/${projectCode}/Users/${User?.result?._id}`} // Updated to include project code
                 style={{
                   color: "white",
                   textDecoration: "none",

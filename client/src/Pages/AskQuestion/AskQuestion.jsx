@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "./AskQuestion.css";
 import { askQuestion } from "../../actions/question";
 import toast from "react-hot-toast";
+import { projectCode } from "../../api";
 
 function AskQuestion() {
   const dispatch = useDispatch();
@@ -29,18 +30,24 @@ function AskQuestion() {
       toast.error("Please fill all the fields");
       return;
     }
-    dispatch(
-      askQuestion(
-        {
-          questionTitle,
-          questionBody,
-          questionTags: questionTags.split(" "),
-          userPosted: User.result.name,
-          userId: User?.result?._id,
-        },
-        navigate
-      )
-    );
+
+    try {
+      dispatch(
+        askQuestion(
+          {
+            questionTitle,
+            questionBody,
+            questionTags: questionTags.split(" "),
+            userPosted: User.result.name,
+            userId: User?.result?._id,
+          },
+          navigate
+        )
+      );
+      navigate(`/${projectCode}/`);
+    } catch (error) {
+      toast.error("Failed to ask question!!");
+    }
   };
 
   return (
@@ -98,7 +105,7 @@ function AskQuestion() {
           </div>
           <input
             type="submit"
-            value="Reivew your question"
+            value="Review your question"
             className="review-btn"
             disabled={
               !questionTitle.trim() ||

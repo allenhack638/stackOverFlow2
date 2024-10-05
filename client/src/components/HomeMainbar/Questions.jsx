@@ -2,6 +2,8 @@ import React from "react";
 import { Link } from "react-router-dom";
 import moment from "moment";
 
+import { projectCode } from "../../api";
+
 function Question({ question }) {
   return (
     <div className="display-question-container">
@@ -14,7 +16,10 @@ function Question({ question }) {
         <p>answers</p>
       </div>
       <div className="display-question-details">
-        <Link to={`/Questions/${question._id}`} className="question-title-link">
+        <Link
+          to={`/${projectCode}/Questions/${question._id}`}
+          className="question-title-link"
+        >
           {question.questionTitle}
         </Link>
         <div className="display-tags-time">

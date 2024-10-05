@@ -3,11 +3,17 @@ import "./LeftSidebar.css";
 import { NavLink } from "react-router-dom";
 import Globe from "../../assets/Globe.svg";
 
+import { projectCode } from "../../api";
+
 const LeftSidebar = () => {
   return (
     <div className="left-sidebar">
       <nav className="side-nav">
-        <NavLink to="/" className="side-nav-links" activeclassname="active">
+        <NavLink
+          to={`/${projectCode}/`}
+          className="side-nav-links"
+          activeclassname="active"
+        >
           <p>Home</p>
         </NavLink>
         <div className="side-nav-div">
@@ -15,7 +21,7 @@ const LeftSidebar = () => {
             <p>PUBLIC</p>
           </div>
           <NavLink
-            to="/Questions"
+            to={`/${projectCode}/Questions`}
             className="side-nav-links"
             activeclassname="active"
             style={{ paddingLeft: "25px" }}
@@ -28,7 +34,7 @@ const LeftSidebar = () => {
             <p> Questions </p>
           </NavLink>
           <NavLink
-            to="/Tags"
+            to={`/${projectCode}/Tags`}
             className="side-nav-links"
             activeclassname="active"
             style={{ paddingLeft: "40px" }}
@@ -36,7 +42,7 @@ const LeftSidebar = () => {
             <p>Tags</p>
           </NavLink>
           <NavLink
-            to="/Users"
+            to={`/${projectCode}/Users`}
             className="side-nav-links"
             activeclassname="active"
             style={{ paddingLeft: "40px" }}
